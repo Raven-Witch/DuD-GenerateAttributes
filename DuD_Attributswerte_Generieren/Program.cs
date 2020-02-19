@@ -10,18 +10,31 @@ namespace DuD_Attributswerte_Generieren
     {
         static void Main(string[] args)
         {
-            //Würfel w6 = new Würfel(6);
-            //Console.WriteLine("Würfel würfelt eine " + w6.würfeln());
+            bool isWiederhole = true;
+            //Sorgt dafür, dass der Random Seed nicht immer wieder neu gesetzt wird, und daher dieser ähnlich ist
             AttributswerteGenerator attributswerte = new AttributswerteGenerator();
-            int[] werte = attributswerte.getAttributswerte();
-            string outputWert = ArrayToString(werte);
-            if(outputWert.Substring(outputWert.Length-1)==",")
-            {
-                outputWert = outputWert.Substring(0, outputWert.Length - 1);
-            }
-            Console.WriteLine("Die Attributswerte sind: " + outputWert);
 
-            Console.ReadLine();
+            while (isWiederhole)
+            {
+                int[] werte = attributswerte.getAttributswerte();
+                //Sortiert Array absteigend
+                Array.Sort<int>(werte,
+                    new Comparison<int>(
+                            (i1, i2) => i2.CompareTo(i1)
+                    ));
+
+                string outputWert = ArrayToString(werte);
+                if(outputWert.Substring(outputWert.Length-1)==",")
+                {
+                    outputWert = outputWert.Substring(0, outputWert.Length - 1);
+                }
+                Console.WriteLine("Die Attributswerte sind: " + outputWert);
+                Console.WriteLine("Sollen erneut Attributswerte generiert werden? j=ja");
+                string eingabe = Console.ReadLine();
+
+                isWiederhole = eingabe.ToUpper() == "J";
+            }
+
         }
 
 
