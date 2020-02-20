@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DuD_Attributswerte_Generieren
 {
@@ -17,18 +13,9 @@ namespace DuD_Attributswerte_Generieren
             while (isWiederhole)
             {
                 int[] werte = attributswerte.getAttributswerte();
-                //Sortiert Array absteigend
-                Array.Sort<int>(werte,
-                    new Comparison<int>(
-                            (i1, i2) => i2.CompareTo(i1)
-                    ));
+                ArrayHelper.getSortDesc(ref werte);
 
-                string outputWert = ArrayToString(werte);
-                if(outputWert.Substring(outputWert.Length-1)==",")
-                {
-                    outputWert = outputWert.Substring(0, outputWert.Length - 1);
-                }
-                Console.WriteLine("Die Attributswerte sind: " + outputWert);
+                Console.WriteLine("Die Attributswerte sind: " + prepareForOutput(werte));
                 Console.WriteLine("Sollen erneut Attributswerte generiert werden? j=ja");
                 string eingabe = Console.ReadLine();
 
@@ -37,17 +24,17 @@ namespace DuD_Attributswerte_Generieren
 
         }
 
-
-        private static string ArrayToString(int[] werte)
+        private static string prepareForOutput(int[] werte)
         {
-            string sReturn = string.Empty;
-
-            foreach (int i in werte)
+            string outputWert = ArrayHelper.ArrayToString(werte);
+            if (outputWert.Substring(outputWert.Length - 1) == ",")
             {
-                sReturn += i.ToString() + ",";
+                outputWert = outputWert.Substring(0, outputWert.Length - 1);
             }
 
-            return sReturn;
+            return outputWert;
         }
+
+
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DuD_Attributswerte_Generieren
 {
     public class AttributswerteGenerator
@@ -57,12 +54,12 @@ namespace DuD_Attributswerte_Generieren
             for (int i = 0; i < höchsteWerte.Length; i++)
             {
                 List<int> wurfErgebnisse = getWurfErgebnisse();
-                if(outputConsole) Console.WriteLine("Gewürfelt wurde: " + ArrayToString(wurfErgebnisse.ToArray()));
+                if(outputConsole) Console.WriteLine("Gewürfelt wurde: " + ArrayHelper.ArrayToString(wurfErgebnisse.ToArray()));
 
                 int[] summenWerte = getMaxwerte(ref wurfErgebnisse);
-                if (outputConsole) Console.WriteLine("Maxergebnisse sind: " + ArrayToString(summenWerte));
+                if (outputConsole) Console.WriteLine("Maxergebnisse sind: " + ArrayHelper.ArrayToString(summenWerte));
 
-                höchsteWerte[i] = getMax(summenWerte);
+                höchsteWerte[i] = ArrayHelper.getSumme(summenWerte);
                 if (outputConsole) Console.WriteLine("Summenwert von " + höchsteWerte[i] + " wurde hinzugefügt");
 
             }
@@ -91,30 +88,6 @@ namespace DuD_Attributswerte_Generieren
 
             return summenWerte;
         }
-
-        private int getMax(int[] werte)
-        {
-            int iReturn = 0;
-
-            foreach(int i in werte)
-            {
-                iReturn += i;
-            }
-
-            return iReturn;
-        }
-
-        private string ArrayToString(int[] werte)
-        {
-            string sReturn = string.Empty;
-
-            foreach(int i in werte)
-            {
-                sReturn += i.ToString() + ",";
-            }
-
-            return sReturn;
-        }
-
+        
     }
 }
